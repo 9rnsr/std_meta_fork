@@ -2758,7 +2758,11 @@ static assert(is(PP[2] ==  void**));
  */
 template map(alias fun, seq...)
 {
-    static if (seq.length == 1)
+    static if (seq.length == 0)
+    {
+        alias Seq!() map;
+    }
+    else static if (seq.length == 1)
     {
         alias Seq!(fun!(seq[0])) map;
     }
@@ -2774,10 +2778,6 @@ template map(string fun, seq...)
 {
     alias map!(unaryT!fun, seq) map;
 }
-
-
-template map(alias  fun) { alias Seq!() map; }
-template map(string fun) { alias Seq!() map; }
 
 
 unittest
