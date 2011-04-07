@@ -1266,13 +1266,8 @@ template delay(alias templat, args...)
 {
     template delay(_...)
     {
-        alias templat!args delay;
+        alias apply!(variadicT!templat, args) delay;
     }
-}
-
-template delay(string templat, args...)
-{
-    alias delay!(variadicT!templat, args) delay;
 }
 
 
@@ -1400,13 +1395,8 @@ template not(alias pred)
 {
     template not(args...)
     {
-        enum not = !pred!args;
+        enum not = !apply!(variadicT!pred, args);
     }
-}
-
-template not(string pred)
-{
-    alias not!(variadicT!pred) not;
 }
 
 
